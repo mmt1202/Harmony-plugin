@@ -16,6 +16,8 @@ import { generate_fix } from './tools/generate_fix.js';
 import { apply_fix } from './tools/apply_fix.js';
 import { build_fix_loop } from './tools/build_fix_loop.js';
 import { environmentDoctor, autoFixEnvironment } from './tools/environment-doctor.js';
+import { generatePackaging } from './tools/generate-packaging.js';
+import { generateMultiChannel } from './tools/generate-multi-channel.js';
 
 function toContent(result: unknown) {
   return {
@@ -237,6 +239,36 @@ server.registerTool(
   },
   async ({ projectPath, issueIds }) => {
     return toContent(await autoFixEnvironment(projectPath, issueIds));
+  },
+);
+
+// 16. generate_packaging - 生成多模块打包配置
+server.registerTool(
+  'generate_packaging',
+  {
+    description: 'Generate multi-module packaging config for HarmonyOS. Creates build-profile.json5 with entry, feature, and library modules. Supports phone/tablet/2in1 device types, delivery with install, and installation-free feature modules.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+      modules: z.array(z.string()).optional().describe('Module names (default: entry, feature, library)'),
+    },
+  },
+  async ({ projectPath, modules }) => {
+    return toContent(await generatePackaging(projectPath, modules));
+  },
+);
+
+// 17. generate_multi_channel - 生成多渠道打包配置
+server.registerTool(
+  'generate_multi_channel',
+  {
+    description: 'Generate multi-channel packaging config for HarmonyOS. Creates Product + buildMode configuration with per-channel bundle names, signing configs, and obfuscation rules. Supports channel-specific builds.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+      channels: z.array(z.string()).optional().describe('Channel names (default: huawei, xiaomi, oppo, vivo, default)'),
+    },
+  },
+  async ({ projectPath, channels }) => {
+    return toContent(await generateMultiChannel(projectPath, channels));
   },
 );
 

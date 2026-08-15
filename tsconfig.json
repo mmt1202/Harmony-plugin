@@ -19,8 +19,7 @@
     "types": ["node"]
   },
   "include": [
-    "shared/**/*.ts",
-    "mcp-servers/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -49,6 +48,7 @@
     { "path": "./mcp-servers/harmony-dashboard-mcp" },
     { "path": "./mcp-servers/harmony-evaluation-mcp" },
     { "path": "./mcp-servers/harmony-creator-mcp" },
-    { "path": "./mcp-servers/harmony-skills-mcp" }
+    { "path": "./mcp-servers/harmony-skills-mcp" },
+    { "path": "./mcp-servers/harmony-kit-mcp" }
   ]
 }

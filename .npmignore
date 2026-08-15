@@ -1,0 +1,6 @@
+node_modules/
+*.tsbuildinfo
+.env
+*.log
+.DS_Store
+# 注意：不排除 dist/，因为 shared/*/dist/ 和 mcp-servers/*/dist/ 需要发布

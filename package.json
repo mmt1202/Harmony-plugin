@@ -1,16 +1,19 @@
 {
-  "name": "harmony-engineering-agent",
-  "version": "0.1.0",
-  "description": "HarmonyOS Engineering Agent Plugin - AI-native engineering infrastructure for building, migrating, validating and maintaining HarmonyOS applications",
-  "private": true,
+  "name": "@itlili/harmony-plugin",
+  "version": "0.2.2",
+  "description": "HarmonyOS Engineering Agent - AI-native MCP toolkit for building, migrating, validating and maintaining HarmonyOS applications",
   "type": "module",
+  "bin": {
+    "harmony-mcp": "harmony-mcp/dist/index.js"
+  },
+  "main": "harmony-mcp/dist/index.js",
+  "files": [
+    "harmony-mcp/dist/",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc -b",
-    "build:watch": "tsc -b -w",
-    "clean": "tsc -b --clean",
-    "lint": "eslint . --ext .ts",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "build": "node scripts/gen-unified.mjs && node scripts/bundle-unified.mjs",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "harmonyos",
@@ -25,21 +28,34 @@
     "miniapp",
     "mcp",
     "agent",
-    "plugin"
+    "plugin",
+    "modelcontextprotocol",
+    "claude",
+    "cursor",
+    "trae",
+    "chatgpt"
   ],
   "author": {
-    "name": "HarmonyOS Engineering Team"
+    "name": "mmt1202"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmt1202/Harmony-plugin.git"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
-  "workspaces": [
-    "mcp-servers/*",
-    "shared/*"
-  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "optionalDependencies": {
+    "@deveco-codegenie/mcp-win32-x64": "0.2.6"
+  },
   "devDependencies": {
     "@types/node": "^26.2.0",
+    "esbuild": "^0.28.2",
     "typescript": "^7.0.2"
   }
 }

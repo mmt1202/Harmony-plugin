@@ -14,6 +14,7 @@ import { checkResponsiveLayout } from "./tools/check-responsive-layout.js";
 import { analyzeScreenshot } from "./tools/screenshot-to-arkui.js";
 import { generateArkUIFromDesign } from "./tools/design-to-arkui.js";
 import { analyzeAdaptiveUI } from "./tools/adaptive-ui-analyzer.js";
+import { designToArkuiVisual } from "./tools/design-to-arkui-visual.js";
 
 const server = new McpServer({
   name: "harmony-visual-mcp",
@@ -211,6 +212,22 @@ server.registerTool(
   },
   async ({ projectPath, targetDevices, targetOrientations }) => {
     return toContent(await analyzeAdaptiveUI(projectPath, targetDevices, targetOrientations));
+  },
+);
+
+// ---- 11. design_to_arkui_visual - 设计稿转 ArkUI 视觉代码 ----
+
+server.registerTool(
+  "design_to_arkui_visual",
+  {
+    description: "Convert a design specification to ArkUI visual code. Generates complete ArkUI page code with CSS token mapping, layout configuration, and component tree. Includes mock data demonstrating a login page design conversion with proper color tokens, typography, spacing, and shadow mappings.",
+    inputSchema: {
+      designSpec: z.string().describe("Design specification description (e.g. 'login page', 'home page with tabs')"),
+      componentList: z.array(z.string()).describe("List of expected UI components in the design"),
+    },
+  },
+  async ({ designSpec, componentList }) => {
+    return toContent(await designToArkuiVisual(designSpec, componentList));
   },
 );
 

@@ -19,6 +19,8 @@ import { collectLogs } from "./tools/collect-logs.js";
 import { collectHilog } from "./tools/collect-hilog.js";
 import { getDeviceInfo } from "./tools/get-device-info.js";
 import { createDeviceMatrix, runDeviceMatrixTests, addDeviceToMatrix } from "./tools/device-matrix.js";
+import { analyzeHardwareAccess } from "./tools/analyze-hardware-access.js";
+import { analyzeInteraction } from "./tools/analyze-interaction.js";
 
 function buildResult<T>(result: ToolResult<T>): string {
   if (result.success) {
@@ -375,6 +377,41 @@ export function createServer(): McpServer {
       const result = await addDeviceToMatrix({
         id: '', name, type, width, height, dpi, orientation, theme, fontScale, locale, description: description ?? '',
       });
+      return {
+        content: [{ type: "text" as const, text: buildResult(result) }],
+      };
+    },
+  );
+
+  // 19. analyze_hardware_access - 硬件访问分析
+  server.registerTool(
+    "analyze_hardware_access",
+    {
+      description: "Analyze hardware access capabilities in the project. Checks camera, bluetooth, NFC, gyroscope, GPS hardware support, SysCap detection, and provides degradation suggestions for unsupported hardware.",
+      inputSchema: {
+        projectPath: z.string().describe("Path to the HarmonyOS project"),
+        targetDevices: z.array(z.string()).optional().describe("Optional target device types to filter compatibility analysis"),
+      },
+    },
+    async ({ projectPath, targetDevices }) => {
+      const result = await analyzeHardwareAccess(projectPath, targetDevices);
+      return {
+        content: [{ type: "text" as const, text: buildResult(result) }],
+      };
+    },
+  );
+
+  // 20. analyze_interaction - 交互方式分析
+  server.registerTool(
+    "analyze_interaction",
+    {
+      description: "Analyze interaction methods supported by the project. Checks touch, mouse, keyboard, stylus, and remote control adaptation. Reports focus navigation issues, keyboard shortcuts, and interaction method adaptation scores.",
+      inputSchema: {
+        projectPath: z.string().describe("Path to the HarmonyOS project"),
+      },
+    },
+    async ({ projectPath }) => {
+      const result = await analyzeInteraction(projectPath);
       return {
         content: [{ type: "text" as const, text: buildResult(result) }],
       };

@@ -7,6 +7,8 @@ import { getHarmonyAPI } from "./tools/get-harmony-api.js";
 import { getAPIVersion } from "./tools/get-api-version.js";
 import { checkAPICompatibility } from "./tools/check-api-compatibility.js";
 import { searchBestPractices } from "./tools/search-best-practice.js";
+import { searchKnowledgeBase, getOfficialKnowledgeBaseConfig } from "./tools/knowledge-base-search.js";
+import { searchOfficialKnowledge } from "./tools/official-knowledge.js";
 
 const server = new McpServer({
   name: "harmony-docs-mcp",
@@ -94,6 +96,56 @@ server.registerTool(
   },
   async ({ query, limit }) => {
     const result = await searchBestPractices(query, limit);
+    return {
+      content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
+    };
+  },
+);
+
+// ---- 官方知识库桥接 ----
+
+server.registerTool(
+  "search_knowledge_base",
+  {
+    description: "搜索 HarmonyOS 知识库（本地 + 云端双路）。本地返回内置 API 文档和最佳实践，同时提示可调用官方 deveco-mcp 的 harmonyos_knowledge_search 获取最新云端文档",
+    inputSchema: {
+      query: z.string().describe("搜索关键词（API名称、组件名、模块名等）"),
+      maxResults: z.number().int().positive().optional().describe("最大返回结果数（默认10）"),
+    },
+  },
+  async ({ query, maxResults }) => {
+    const result = await searchKnowledgeBase(query, maxResults);
+    return {
+      content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
+    };
+  },
+);
+
+server.registerTool(
+  "get_official_knowledge_config",
+  {
+    description: "获取官方 HarmonyOS 知识库（deveco-mcp 的 harmonyos_knowledge_search）的配置信息和使用说明",
+    inputSchema: {},
+  },
+  async () => {
+    const config = getOfficialKnowledgeBaseConfig();
+    return {
+      content: [{ type: "text" as const, text: JSON.stringify(config, null, 2) }],
+    };
+  },
+);
+
+server.registerTool(
+  "search_official_knowledge",
+  {
+    description: "直接调用华为云端 HarmonyOS 知识库搜索。支持搜索API参考、开发指南、最佳实践、常见问题和版本变更说明。结果来自华为官方实时文档。",
+    inputSchema: {
+      keywords: z.array(z.string()).describe("搜索关键词列表"),
+      maxCharSize: z.number().int().positive().optional().describe("最大返回字符数（默认10000）"),
+    },
+  },
+  async ({ keywords, maxCharSize }) => {
+    const result = await searchOfficialKnowledge(keywords, maxCharSize);
     return {
       content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
     };

@@ -10,6 +10,9 @@ import { checkEncryption } from "./tools/check-encryption.js";
 import { generateSBOM } from "./tools/generate-sbom.js";
 import { configureDataBoundary, checkDataBoundary } from "./tools/data-boundary.js";
 import { auditSupplyChain } from "./tools/supply-chain-security.js";
+import { auditPrivacyEnhanced } from "./tools/audit-privacy-enhanced.js";
+import { scanCve } from "./tools/scan-cve.js";
+import { auditEncryption } from "./tools/audit-encryption.js";
 
 const server = new McpServer({
   name: "harmony-security-mcp",
@@ -156,6 +159,45 @@ server.registerTool(
   },
   async ({ projectPath }) => {
     return toContent(await auditSupplyChain(projectPath));
+  },
+);
+
+server.registerTool(
+  "audit_privacy_enhanced",
+  {
+    description: "Enhanced privacy compliance audit with AppGallery requirements checklist. Includes user data collection declaration, third-party SDK privacy risk assessment, data retention policies, and actionable fixes.",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await auditPrivacyEnhanced(projectPath));
+  },
+);
+
+server.registerTool(
+  "scan_cve",
+  {
+    description: "Scan project dependencies against CVE database for known vulnerabilities. Also performs OWASP Mobile Top 10 security checks. Returns CVE entries with CVSS scores, severity, and fix versions.",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await scanCve(projectPath));
+  },
+);
+
+server.registerTool(
+  "audit_encryption",
+  {
+    description: "Comprehensive encryption audit covering transport encryption (HTTPS/TLS/WebSocket), storage encryption (files/Preferences/database), and key management (HUKS/hardcoded keys/rotation). Returns score and prioritized recommendations.",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await auditEncryption(projectPath));
   },
 );
 

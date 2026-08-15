@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    },
+    "harmony-migration-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "migration"]
+    },
+    "harmony-build-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "build"]
+    },
+    "harmony-verify-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "verify"]
+    },
+    "harmony-docs-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "docs"]
+    }
+  }
+}

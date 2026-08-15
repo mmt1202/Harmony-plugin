@@ -26,6 +26,85 @@ Agent 自动选择 Plugin 中的 Skill 和工具执行完整任务。
 
 ---
 
+## 快速接入（30 秒）
+
+```bash
+npm install -g @itlili/harmony-plugin
+```
+
+然后在你使用的 AI 工具配置文件中添加 MCP Server：
+
+### Trae
+配置文件：`%APPDATA%\Trae\User\mcp.json` 或项目 `.mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    }
+  }
+}
+```
+
+### Cursor
+配置文件：`~/.cursor/mcp.json` 或项目 `.cursor/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    }
+  }
+}
+```
+
+### Claude Desktop
+配置文件：
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    }
+  }
+}
+```
+
+### ChatGPT Desktop
+配置文件：
+- Windows: `%APPDATA%\OpenAI\ChatGPT\mcp.json`
+- macOS: `~/Library/Application Support/com.openai.chatgpt/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    }
+  }
+}
+```
+
+### VS Code / Cline
+项目根目录创建 `.mcp.json`，配置同上。
+
+---
+
+> **配置模板**：完整配置见 [`configs/all.json`](configs/all.json)（全部 19 个服务）或 [`configs/core.json`](configs/core.json)（核心 5 个服务）。
+
+> **可用服务名**：`project` `docs` `dependency` `migration` `build` `device` `verify` `test` `visual` `performance` `security` `release` `enterprise` `code-doctor` `orchestrator` `dashboard` `evaluation` `creator` `skills`
+
+---
+
 ## 架构概览
 
 ```

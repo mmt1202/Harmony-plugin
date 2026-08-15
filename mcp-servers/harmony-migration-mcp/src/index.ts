@@ -23,6 +23,12 @@ import { migrateNativeCode } from './tools/migrate-native-code.js';
 import { migrateWebView } from './tools/migrate-webview.js';
 import { migrateDeepLinksAndPush } from './tools/migrate-deeplink-push.js';
 import { backendMigrationAssistant } from './tools/backend-migration.js';
+import { generateNetworkClient } from './tools/generate-network-client.js';
+import { generateWebSocket } from './tools/generate-websocket.js';
+import { generateNetworkMonitor } from './tools/generate-network-monitor.js';
+import { generateKvStore } from './tools/generate-kvstore.js';
+import { generateContinuation } from './tools/generate-continuation.js';
+import { generateTapShare } from './tools/generate-tap-share.js';
 
 // ============================================================
 // MCP Server 定义
@@ -558,6 +564,97 @@ server.registerTool(
   },
   async ({ sourceProjectPath, targetProjectPath, sourcePlatform }) => {
     const result = await backendMigrationAssistant(sourceProjectPath, targetProjectPath, sourcePlatform);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 26. generate_network_client - 生成网络客户端代码
+server.registerTool(
+  'generate_network_client',
+  {
+    description: 'Generate HarmonyOS network client code (@ohos.net.http wrapper). Includes interceptors, retry with exponential backoff, in-memory cache with TTL, timeout control, and unified error handling.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+      sourcePlatform: z.string().describe('Source platform (android, ios, flutter, react-native, etc.)'),
+    },
+  },
+  async ({ projectPath, sourcePlatform }) => {
+    const result = await generateNetworkClient(projectPath, sourcePlatform);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 27. generate_websocket - 生成 WebSocket 代码
+server.registerTool(
+  'generate_websocket',
+  {
+    description: 'Generate HarmonyOS WebSocket connection management code. Features: auto-reconnect with exponential backoff, heartbeat keep-alive, offline message queue, connection state machine, event listeners.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+    },
+  },
+  async ({ projectPath }) => {
+    const result = await generateWebSocket(projectPath);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 28. generate_network_monitor - 生成网络监听代码
+server.registerTool(
+  'generate_network_monitor',
+  {
+    description: 'Generate HarmonyOS network state change listener code. Detects WiFi/cellular/ethernet/VPN/offline states, monitors signal strength, identifies 5G/4G/3G/2G cellular types, and checks metered network status.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+    },
+  },
+  async ({ projectPath }) => {
+    const result = await generateNetworkMonitor(projectPath);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 29. generate_kvstore - 生成分布式 KVStore 代码
+server.registerTool(
+  'generate_kvstore',
+  {
+    description: 'Generate HarmonyOS distributed KVStore sync code. Features: distributed read/write, batch operations, type-safe access (getString/getNumber/getBoolean/getObject), auto-sync with configurable interval, data change listener, encrypted storage (S2 security level).',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+    },
+  },
+  async ({ projectPath }) => {
+    const result = await generateKvStore(projectPath);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 30. generate_continuation - 生成 Continuation 任务迁移代码
+server.registerTool(
+  'generate_continuation',
+  {
+    description: 'Generate HarmonyOS Continuation task migration code. Enables cross-device task handoff: save app state, discover nearby devices, transfer tasks phone↔tablet↔pad, and restore state on target device.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+    },
+  },
+  async ({ projectPath }) => {
+    const result = await generateContinuation(projectPath);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+// 31. generate_tap_share - 生成碰一碰分享代码
+server.registerTool(
+  'generate_tap_share',
+  {
+    description: 'Generate HarmonyOS Tap-to-Share (碰一碰) code. Features: NFC tap sharing, multi-device transfer (phone↔tablet↔PC), multiple content types (TEXT/URL/IMAGE/FILE/CONTACT/APP_LINK), nearby device discovery, share history.',
+    inputSchema: {
+      projectPath: z.string().describe('Path to the HarmonyOS project'),
+    },
+  },
+  async ({ projectPath }) => {
+    const result = await generateTapShare(projectPath);
     return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
   },
 );

@@ -4,8 +4,12 @@
   "description": "Shared utility functions for HarmonyOS Engineering Agent",
   "private": true,
   "type": "module",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  },
   "dependencies": {
     "@harmony-agent/types": "*"
   }

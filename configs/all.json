@@ -1,0 +1,80 @@
+{
+  "mcpServers": {
+    "harmony-project-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "project"]
+    },
+    "harmony-docs-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "docs"]
+    },
+    "harmony-dependency-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "dependency"]
+    },
+    "harmony-migration-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "migration"]
+    },
+    "harmony-build-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "build"]
+    },
+    "harmony-device-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "device"]
+    },
+    "harmony-verify-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "verify"]
+    },
+    "harmony-test-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "test"]
+    },
+    "harmony-visual-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "visual"]
+    },
+    "harmony-performance-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "performance"]
+    },
+    "harmony-security-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "security"]
+    },
+    "harmony-release-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "release"]
+    },
+    "harmony-enterprise-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "enterprise"]
+    },
+    "harmony-code-doctor-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "code-doctor"]
+    },
+    "harmony-orchestrator-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "orchestrator"]
+    },
+    "harmony-dashboard-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "dashboard"]
+    },
+    "harmony-evaluation-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "evaluation"]
+    },
+    "harmony-creator-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "creator"]
+    },
+    "harmony-skills-mcp": {
+      "command": "npx",
+      "args": ["-y", "@itlili/harmony-plugin", "skills"]
+    }
+  }
+}

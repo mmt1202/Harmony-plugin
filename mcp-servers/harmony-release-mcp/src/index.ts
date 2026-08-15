@@ -9,6 +9,8 @@ import { generateReleaseReport } from "./tools/generate-release-report.js";
 import { generateChangelog } from "./tools/generate-changelog.js";
 import { checkInternationalization } from "./tools/internationalization.js";
 import { checkAccessibility } from "./tools/accessibility.js";
+import { generateSigning } from "./tools/generate-signing.js";
+import { auditAppMetadata } from "./tools/audit-app-metadata.js";
 
 const server = new McpServer({
   name: "harmony-release-mcp",
@@ -118,6 +120,34 @@ server.registerTool(
   },
   async ({ projectPath }) => {
     return toContent(await checkAccessibility(projectPath));
+  },
+);
+
+// 8. audit_app_metadata - 应用元数据审计
+server.registerTool(
+  "audit_app_metadata",
+  {
+    description: `应用元数据审计。检查应用名称、图标、截图、描述、隐私政策、版本号、内容分级、应用分类、开发者信息等上架元数据的合规性。`,
+    inputSchema: {
+      projectPath: z.string().describe("HarmonyOS 项目路径"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await auditAppMetadata(projectPath));
+  },
+);
+
+// 9. generate_signing - 生成签名配置
+server.registerTool(
+  "generate_signing",
+  {
+    description: "生成 HarmonyOS 签名配置。支持三种签名模式：自动签名 (auto_debug，调试)、手动签名 (manual_release，发布)、企业签名 (enterprise，内部分发)。使用 SHA256withECDSA 算法，.p12 密钥库 + .p7b Profile。",
+    inputSchema: {
+      projectPath: z.string().describe("HarmonyOS 项目路径"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await generateSigning(projectPath));
   },
 );
 

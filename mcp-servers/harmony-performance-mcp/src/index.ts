@@ -15,6 +15,14 @@ import { detectPerformanceRegression } from "./tools/performance-regression.js";
 import { gitBisectPerformance } from "./tools/git-bisect.js";
 import { analyzeCrash } from "./tools/crash-analyzer.js";
 import { analyzeLogs } from "./tools/log-intelligence.js";
+import { diagnoseCrash } from "./tools/diagnose-crash.js";
+import { analyzeFreeze } from "./tools/analyze-freeze.js";
+import { detectMemoryLeak } from "./tools/detect-memory-leak.js";
+import { analyzeApiFault } from "./tools/analyze-api-fault.js";
+import { optimizeMemoryTier } from "./tools/optimize-memory-tier.js";
+import { generateNapiBinding } from "./tools/generate-napi-binding.js";
+import { generateCmake } from "./tools/generate-cmake.js";
+import { ndkDebugGuide } from "./tools/ndk-debug-guide.js";
 
 const server = new McpServer({
   name: "harmony-performance-mcp",
@@ -239,6 +247,125 @@ server.registerTool(
   },
   async ({ projectPath, logType, logContent }) => {
     return toContent(await analyzeLogs(projectPath, logType, logContent));
+  },
+);
+
+// 15. diagnose_crash - 崩溃日志一键诊断
+server.registerTool(
+  "diagnose_crash",
+  {
+    description: "崩溃日志一键诊断。输入崩溃日志（jscrash/faultlog/hilog），自动识别崩溃类型（JS/C++/Freeze），解析堆栈，定位源代码，输出根因和修复建议。支持 JS 崩溃、C++ 崩溃、ANR 冻屏。",
+    inputSchema: {
+      logPath: z.string().describe("崩溃日志文件路径"),
+      logType: z.enum(["jscrash", "cppcrash", "faultlog", "auto"]).optional().describe("日志类型，默认 auto 自动识别"),
+    },
+  },
+  async ({ logPath, logType }) => {
+    return toContent(await diagnoseCrash(logPath, logType));
+  },
+);
+
+// 16. analyze_freeze - 应用冻屏分析
+server.registerTool(
+  "analyze_freeze",
+  {
+    description: "应用冻屏分析。输入冻屏日志，分析主线程阻塞原因，定位卡死代码位置。输出冻屏时间线、阻塞线程、卡死代码、修复建议。",
+    inputSchema: {
+      logPath: z.string().describe("hilog/faultlog 日志文件路径"),
+      bundleName: z.string().optional().describe("应用包名，用于过滤日志"),
+    },
+  },
+  async ({ logPath, bundleName }) => {
+    return toContent(await analyzeFreeze(logPath, bundleName));
+  },
+);
+
+// 17. detect_memory_leak - 内存泄漏检测
+server.registerTool(
+  "detect_memory_leak",
+  {
+    description: "内存泄漏检测。输入 heap snapshot 或 rawheap 文件，分析内存对象，识别泄漏对象和引用链。支持 JS 堆泄漏和 Native 内存泄漏。",
+    inputSchema: {
+      heapFilePath: z.string().describe(".heapsnapshot 或 .rawheap 文件路径"),
+      leakType: z.enum(["js", "native", "auto"]).optional().describe("泄漏类型，默认 auto"),
+    },
+  },
+  async ({ heapFilePath, leakType }) => {
+    return toContent(await detectMemoryLeak(heapFilePath, leakType));
+  },
+);
+
+// 18. analyze_api_fault - API 故障分析
+server.registerTool(
+  "analyze_api_fault",
+  {
+    description: "API 故障分析。输入 API 错误码或错误日志，查询知识库，返回错误原因和解决方案。支持常见错误码如 801、B0001 等。",
+    inputSchema: {
+      errorCode: z.string().describe("错误码，如 '801'、'B0001'"),
+      errorMessage: z.string().optional().describe("错误信息"),
+      moduleName: z.string().optional().describe("出错的模块名"),
+    },
+  },
+  async ({ errorCode, errorMessage, moduleName }) => {
+    return toContent(await analyzeApiFault(errorCode, errorMessage, moduleName));
+  },
+);
+
+// 19. optimize_memory_tier - 低端机内存分档优化
+server.registerTool(
+  "optimize_memory_tier",
+  {
+    description: "低端机内存分档优化。采集内存数据 → 分析瓶颈 → 生成分档方案 → 生成优化代码 → 验证。提供完整的内存优化闭环。",
+    inputSchema: {
+      projectPath: z.string().describe("项目路径"),
+      targetDevice: z.string().describe("目标低端机型号"),
+      memoryLimit: z.number().describe("内存上限（MB）"),
+    },
+  },
+  async ({ projectPath, targetDevice, memoryLimit }) => {
+    return toContent(await optimizeMemoryTier(projectPath, targetDevice, memoryLimit));
+  },
+);
+
+// 20. generate_napi_binding - 生成 NAPI 绑定代码
+server.registerTool(
+  "generate_napi_binding",
+  {
+    description: "Generate ArkTS NAPI binding code from C++ header. Creates NapiBridge singleton with type-safe interface, ArrayBuffer data transfer, callback registration, and thread-safe function support. Includes both ArkTS wrapper and C++ napi_init.cpp template.",
+    inputSchema: {
+      headerFilePath: z.string().describe("Path to the C++ header file to generate bindings for"),
+    },
+  },
+  async ({ headerFilePath }) => {
+    return toContent(await generateNapiBinding(headerFilePath));
+  },
+);
+
+// 21. generate_cmake - 生成 CMakeLists.txt 配置
+server.registerTool(
+  "generate_cmake",
+  {
+    description: "Generate CMakeLists.txt config for HarmonyOS native development. Includes C++17 standard, Release/Debug optimization, security flags, platform detection, EGL/GLES/NAPI/HiLog library linking, and optional third-party integration (OpenCV/TFLite/FFmpeg).",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+    },
+  },
+  async ({ projectPath }) => {
+    return toContent(await generateCmake(projectPath));
+  },
+);
+
+// 22. ndk_debug_guide - NDK 调试指南
+server.registerTool(
+  "ndk_debug_guide",
+  {
+    description: "Generate native code debugging guide and performance analysis tips. Covers LLDB debugging, crash analysis (SIGSEGV/SIGABRT/SIGBUS), memory debugging with ASan, CPU profiling, multi-thread debugging, and common pitfalls. Includes tool references and command examples.",
+    inputSchema: {
+      issueType: z.string().describe("Type of native debugging issue (e.g., crash, memory_leak, performance, thread_deadlock)"),
+    },
+  },
+  async ({ issueType }) => {
+    return toContent(await ndkDebugGuide(issueType));
   },
 );
 

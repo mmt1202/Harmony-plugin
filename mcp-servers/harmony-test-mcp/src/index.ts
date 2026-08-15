@@ -9,6 +9,8 @@ import { runRegressionTest } from "./tools/run-regression-test.js";
 import { analyzeTestResults } from "./tools/analyze-test-results.js";
 import { generateTestReport } from "./tools/generate-test-report.js";
 import { compareTestCoverage } from "./tools/compare-test-coverage.js";
+import { runLocalTest } from "./tools/run-local-test.js";
+import { runInstrumentTest } from "./tools/run-instrument-test.js";
 
 const server = new McpServer({
   name: "harmony-test-mcp",
@@ -178,6 +180,36 @@ server.registerTool(
       sourceTestResult as any,
       targetTestResult as any,
     ));
+  },
+);
+
+// 8. run_local_test - 本地测试
+server.registerTool(
+  "run_local_test",
+  {
+    description: `运行本地测试。在本地环境中执行单元测试和 UI 测试，返回测试结果、覆盖率报告和失败用例详情。`,
+    inputSchema: {
+      projectPath: z.string().describe("HarmonyOS 项目路径"),
+      moduleName: z.string().optional().describe("可选：指定模块名称，为空则使用项目名"),
+    },
+  },
+  async ({ projectPath, moduleName }) => {
+    return toContent(await runLocalTest(projectPath, moduleName));
+  },
+);
+
+// 9. run_instrument_test - 插桩测试
+server.registerTool(
+  "run_instrument_test",
+  {
+    description: `运行插桩测试。在真机/模拟器上执行插桩测试，支持 ASan 内存检测，返回测试结果、覆盖率和 ASan 报告。`,
+    inputSchema: {
+      projectPath: z.string().describe("HarmonyOS 项目路径"),
+      enableASan: z.boolean().optional().describe("是否启用 ASan 内存检测，默认关闭"),
+    },
+  },
+  async ({ projectPath, enableASan }) => {
+    return toContent(await runInstrumentTest(projectPath, enableASan));
   },
 );
 

@@ -4,6 +4,8 @@ import { z } from "zod";
 
 import { codeDoctor } from "./tools/code-doctor.js";
 import { healthScore } from "./tools/health-score.js";
+import { checkDeprecatedApis } from "./tools/check-deprecated-apis.js";
+import { checkArktsSyntax } from "./tools/check-arkts-syntax.js";
 
 const server = new McpServer({
   name: "harmony-code-doctor-mcp",
@@ -51,6 +53,36 @@ server.registerTool(
   },
   async ({ projectPath }) => {
     return toContent(await healthScore(projectPath));
+  },
+);
+
+// 3. check_deprecated_apis - 废弃 API 检查
+server.registerTool(
+  "check_deprecated_apis",
+  {
+    description: "Check for deprecated API usage in the project. Identifies deprecated APIs, provides replacement alternatives, migration code examples, and severity classification. Covers @system.router → @ohos.router, @system.storage → @ohos.data.preferences, @system.fetch → @ohos.net.http, and more.",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+      targetSdk: z.string().optional().describe("Target SDK version (e.g. 'API 12'), defaults to 'API 12'"),
+    },
+  },
+  async ({ projectPath, targetSdk }) => {
+    return toContent(await checkDeprecatedApis(projectPath, targetSdk));
+  },
+);
+
+// 4. check_arkts_syntax - ArkTS 语法检查
+server.registerTool(
+  "check_arkts_syntax",
+  {
+    description: "ArkTS 语法检查器。扫描项目中的 ArkTS 文件，检查语法错误、类型错误、装饰器使用规范、性能警告。支持自动修复（autoFix=true）。检测 ETS1001-ETS1004 等常见错误码。",
+    inputSchema: {
+      projectPath: z.string().describe("Path to the HarmonyOS project"),
+      autoFix: z.boolean().optional().describe("Auto-fix detected errors (default: false)"),
+    },
+  },
+  async ({ projectPath, autoFix }) => {
+    return toContent(await checkArktsSyntax(projectPath, autoFix));
   },
 );
 

@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "types": ["node"]
+  },
+  "include": [
+    "shared/**/*.ts",
+    "mcp-servers/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
+  ],
+  "references": [
+    { "path": "./shared/types" },
+    { "path": "./shared/utils" },
+    { "path": "./shared/migration-ledger" },
+    { "path": "./mcp-servers/harmony-project-mcp" },
+    { "path": "./mcp-servers/harmony-docs-mcp" },
+    { "path": "./mcp-servers/harmony-migration-mcp" },
+    { "path": "./mcp-servers/harmony-build-mcp" },
+    { "path": "./mcp-servers/harmony-device-mcp" },
+    { "path": "./mcp-servers/harmony-dependency-mcp" },
+    { "path": "./mcp-servers/harmony-verify-mcp" },
+    { "path": "./mcp-servers/harmony-test-mcp" },
+    { "path": "./mcp-servers/harmony-visual-mcp" },
+    { "path": "./mcp-servers/harmony-performance-mcp" },
+    { "path": "./mcp-servers/harmony-security-mcp" },
+    { "path": "./mcp-servers/harmony-release-mcp" },
+    { "path": "./mcp-servers/harmony-enterprise-mcp" },
+    { "path": "./mcp-servers/harmony-code-doctor-mcp" },
+    { "path": "./mcp-servers/harmony-orchestrator-mcp" },
+    { "path": "./mcp-servers/harmony-dashboard-mcp" },
+    { "path": "./mcp-servers/harmony-evaluation-mcp" },
+    { "path": "./mcp-servers/harmony-creator-mcp" },
+    { "path": "./mcp-servers/harmony-skills-mcp" }
+  ]
+}

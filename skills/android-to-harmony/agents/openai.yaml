@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android 转鸿蒙"
+  short_description: "将 Android 项目（Java/Kotlin/XML/Compose）转换为 HarmonyOS（ArkTS/ArkUI），基于迁移 IR 中间表示"
+  default_prompt: "请将指定的 Android 源文件/模块/项目转换为 HarmonyOS ArkTS 代码。包括：Activity → UIAbility、XML/Compose → ArkUI、SharedPreferences → Preferences、Retrofit → HTTP、Room → RelationalStore、Gradle → Hvigor。每次转换必须输出置信度评分。"

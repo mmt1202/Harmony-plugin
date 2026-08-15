@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- 背景圆 -->
+  <circle cx="60" cy="60" r="58" fill="#FF6A00" />
+  <circle cx="60" cy="60" r="58" stroke="#E55D00" stroke-width="2"/>
+  <!-- H 字母 (Harmony) -->
+  <g transform="translate(20, 20)">
+    <!-- 左侧竖线 -->
+    <rect x="10" y="0" width="12" height="80" rx="4" fill="white"/>
+    <!-- 右侧竖线 -->
+    <rect x="58" y="0" width="12" height="80" rx="4" fill="white"/>
+    <!-- 横线 -->
+    <rect x="10" y="34" width="60" height="12" rx="4" fill="white"/>
+  </g>
+  <!-- 齿轮/AI 小标记 -->
+  <circle cx="85" cy="85" r="12" fill="white" opacity="0.9"/>
+  <circle cx="85" cy="85" r="6" fill="#FF6A00"/>
+</svg>

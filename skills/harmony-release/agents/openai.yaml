@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙发布检查"
+  short_description: "检查鸿蒙项目是否满足发布要求，包括签名验证、AppGallery 合规和发布就绪评估"
+  default_prompt: "请对这个鸿蒙项目进行发布就绪检查。1) 运行全部发布检查项 2) 验证签名配置 3) 检查 AppGallery 上架要求 4) 生成发布报告 5) 生成变更日志。输出发布就绪评估和阻塞问题清单。"

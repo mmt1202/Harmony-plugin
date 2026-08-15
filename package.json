@@ -1,0 +1,45 @@
+{
+  "name": "harmony-engineering-agent",
+  "version": "0.1.0",
+  "description": "HarmonyOS Engineering Agent Plugin - AI-native engineering infrastructure for building, migrating, validating and maintaining HarmonyOS applications",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "build:watch": "tsc -b -w",
+    "clean": "tsc -b --clean",
+    "lint": "eslint . --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "harmonyos",
+    "arkts",
+    "arkui",
+    "migration",
+    "android",
+    "ios",
+    "flutter",
+    "react-native",
+    "uniapp",
+    "miniapp",
+    "mcp",
+    "agent",
+    "plugin"
+  ],
+  "author": {
+    "name": "HarmonyOS Engineering Team"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "workspaces": [
+    "mcp-servers/*",
+    "shared/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}

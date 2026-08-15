@@ -1,0 +1,24 @@
+{
+  "name": "@harmony-agent/harmony-device-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for HarmonyOS device and emulator management",
+  "private": true,
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "build:watch": "tsc -b -w",
+    "clean": "tsc -b --clean",
+    "start": "node ./dist/src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@harmony-agent/types": "*",
+    "@harmony-agent/utils": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0"
+  }
+}

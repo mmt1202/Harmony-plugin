@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙依赖专家"
+  short_description: "扫描项目依赖，查找鸿蒙等效方案，解析依赖冲突，审查许可证和安全漏洞"
+  default_prompt: "请扫描当前项目的所有依赖，为每个依赖查找 HarmonyOS ohpm 等效方案。包括：Gradle/Maven/CocoaPods/SPM/npm 依赖扫描、ohpm 等效依赖搜索、API 映射表、许可证兼容性审查、安全漏洞审查、本地依赖（AAR/JAR/SO）风险评估，生成完整依赖迁移矩阵。"

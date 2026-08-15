@@ -1,0 +1,57 @@
+{
+  "name": "harmony-engineering-agent",
+  "version": "0.1.0",
+  "displayName": "鸿蒙工程 Agent",
+  "description": "AI 原生鸿蒙软件工程基础设施。支持跨平台项目迁移（Android/iOS/Flutter/RN/uni-app → HarmonyOS）、ArkTS/ArkUI 开发、编译修复、代码检查、测试、性能分析、安全审计和发布检查。",
+  "author": {
+    "name": "HarmonyOS Engineering Team"
+  },
+  "license": "UNLICENSED",
+  "logo": "./assets/icon.svg",
+  "keywords": [
+    "harmonyos",
+    "鸿蒙",
+    "arkts",
+    "arkui",
+    "migration",
+    "迁移",
+    "android",
+    "ios",
+    "flutter",
+    "react-native",
+    "uniapp",
+    "miniapp",
+    "小程序",
+    "mcp",
+    "agent",
+    "build",
+    "performance",
+    "security"
+  ],
+  "skills": "./skills/",
+  "mcp": "./.mcp.json",
+  "connector": "./connector.json",
+  "interface": {
+    "displayName": "鸿蒙工程 Agent",
+    "shortDescription": "AI 原生鸿蒙开发基础设施：跨平台迁移、ArkTS 开发、编译修复、代码检查、性能分析",
+    "longDescription": "鸿蒙工程 Agent 是一个 AI 原生的 HarmonyOS 软件工程基础设施。它可以：\n- 自动识别项目类型（Android/iOS/Flutter/RN/uni-app/小程序）\n- 评估迁移成本、风险和周期\n- 自动执行 Android → HarmonyOS 代码迁移\n- 编译并自动修复编译错误\n- 检查代码质量和缺失功能\n- 分析性能追踪和卡顿\n- 安全审计和发布检查\n\n无需手工告诉 AI 每一步操作，只需描述目标即可。",
+    "developerName": "HarmonyOS Engineering Team",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "把这个 Android 项目迁移成鸿蒙原生应用",
+      "分析这个项目的迁移成本和风险",
+      "检查这个鸿蒙项目还有哪些问题",
+      "帮我修复编译错误",
+      "分析这个 trace 找到卡顿原因"
+    ],
+    "brandColor": "#FF6A00",
+    "screenshots": [],
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}

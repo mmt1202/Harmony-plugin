@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙 API 专家"
+  short_description: "查询 HarmonyOS 官方 API 文档，查找 API 等效方案，检查兼容性，提供最佳实践和代码示例"
+  default_prompt: "请帮我查询 HarmonyOS API 文档。我可以：搜索特定 API 的详细文档、从 Android/iOS API 查找鸿蒙等效方案、检查 API 版本兼容性（@since/@deprecated）、对比不同版本 API 差异、提供最佳实践和完整代码示例。"

@@ -1,0 +1,9 @@
+{
+  "connectors": {
+    "harmonyos": {
+      "type": "oauth",
+      "auth_policy": "ON_INSTALL",
+      "description": "HarmonyOS 官方文档和 API 服务认证"
+    }
+  }
+}

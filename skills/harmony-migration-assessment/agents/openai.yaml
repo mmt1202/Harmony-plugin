@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙迁移评估"
+  short_description: "评估项目迁移到鸿蒙的难度、成本、风险和时间线，生成详细迁移评估报告"
+  default_prompt: "请基于 ProjectDNA 分析结果，评估当前项目迁移到 HarmonyOS 的难度、风险和成本。包括：计算自动迁移率/AI 辅助率/人工率，文件级风险分类，模块级风险评分，阻塞项识别，工期估算和团队配置建议。"

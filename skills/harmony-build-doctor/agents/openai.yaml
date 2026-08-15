@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙编译医生"
+  short_description: "构建 HarmonyOS 项目，解析编译错误，自动修复编译问题，实现 Build Fix Loop"
+  default_prompt: "请构建当前的 HarmonyOS 项目，解析编译错误，并自动修复问题。我会执行 Build Fix Loop：BUILD → FAIL → Parse Error → Classify → Search Docs → Generate Fix → Apply Patch → BUILD，循环直到编译通过或遇到阻塞问题。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "跨平台持续同步"
+  short_description: "增量迁移和跨平台持续同步，检测源项目变更并自动同步到鸿蒙项目，支持文件映射、符号映射、影响分析和自动补丁"
+  default_prompt: "请管理跨平台持续同步。1) 使用 sync_incremental_changes 执行增量迁移 2) 使用 detect_source_changes 检测源项目变更 3) 使用 analyze_sync_impact 分析变更影响 4) 使用 generate_harmony_patches 生成鸿蒙补丁 5) 根据需要配置同步策略 6) 使用 execute_cross_platform_sync 执行完整同步流程。输出同步报告和迁移状态。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "高级迁移引擎"
+  short_description: "资源/图片/数据库/网络/API契约/Mock/认证/Native/二进制SDK/WebView/DeepLink/Push的全链路高级迁移"
+  default_prompt: "请执行高级迁移任务。1) 使用 migrate_resources 迁移资源文件 2) 使用 optimize_images 优化图片 3) 使用 migrate_database 迁移数据库 4) 使用 migrate_network 迁移网络层 5) 使用 validate_api_contract 验证API契约 6) 使用 generate_mock_server 生成Mock服务 7) 使用 migrate_authentication 迁移认证 8) 使用 migrate_native_code 分析Native代码 9) 使用 migrate_webview 迁移WebView 10) 使用 migrate_deeplink_push 迁移DeepLink和Push。输出综合迁移报告。"

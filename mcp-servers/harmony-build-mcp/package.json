@@ -1,0 +1,22 @@
+{
+  "name": "@harmony-agent/harmony-build-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for HarmonyOS build and compilation",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "build:watch": "tsc -b -w",
+    "clean": "tsc -b --clean",
+    "dev": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  }
+}

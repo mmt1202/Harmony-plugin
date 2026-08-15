@@ -1,0 +1,4 @@
+interface:
+  display_name: "鸿蒙项目分析器"
+  short_description: "深度分析移动项目，识别框架、架构、模块、页面和依赖，生成结构化 ProjectDNA JSON"
+  default_prompt: "请分析当前项目，识别其框架类型、架构模式、业务模块、平台能力调用和依赖关系，生成完整的 ProjectDNA JSON 文档。包括项目指标、模块列表、能力图谱、依赖矩阵和风险标记。"
